@@ -5,13 +5,37 @@ class GitBlameChain
   end
 
   def run
-    system "git blame #{@sha} -- #{@path_to_file}"
+    loop
+  end
+
+  GIT_BLAME_REGEX = /(.+?) /
+
+  def loop
+    out = `git blame #{@sha} -- #{@path_to_file}`
+    puts out
     exit $?.exitstatus unless $?.success?
-=begin
-    while res = gets.chomp
-      break if res == "quit"
-      puts res.reverse
+
+    lines = out.split("\n")
+    count = lines.count
+
+    input = prompt_for_line(count)
+    sha_to_show = lines[input]
+
+    out = `git show #{sha_to_show}`
+
+    # git log de2a1d78f80e02a515cdd3aa0420dd6ee35b510b -n 1
+
+  end
+
+  def prompt_for_line(count)
+    print "\nWhich line are you concerned with? (1 to #{count}) > "
+    input = $stdin.gets
+    input = input.strip.to_i
+    until input >= 1 && input <= count
+      print "Invalid input.  Please enter a number from 1 to #{count} > "
+      input = $stdin.gets
+      input = input.strip.to_i
     end
-=end
+    input
   end
 end

@@ -8,9 +8,10 @@ Bundler.require :default
 
 require 'active_support/all'
 require 'active_support/dependencies'
+ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib/git-blame-chain'
+
 require 'optparse'
 
-ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib/git-blame-chain'
 
 
 options = {}
