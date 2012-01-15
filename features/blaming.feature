@@ -1,0 +1,3 @@
+Feature: Blaming
+
+  Scenario:
