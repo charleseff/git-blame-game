@@ -1,23 +1,42 @@
 #!/usr/bin/env ruby
+require "rubygems"
+require "bundler"
+root_dir = File.dirname(__FILE__) + '/../'
+
+ENV['BUNDLE_GEMFILE'] = File.join(root_dir, 'Gemfile')
+Bundler.require :default
+
 require 'active_support/all'
 require 'active_support/dependencies'
+require 'optparse'
 
-ActiveSupport::Dependencies.autoload_paths << File.dirname(__FILE__) + '/../lib'
+ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib'
 
-puts 'git-blame-chain started'
 
-=begin
-require 'cucumber/rspec/disable_option_parser'
-require 'cucumber/cli/main'
-begin
-  # The dup is to keep ARGV intact, so that tools like ruby-debug can respawn.
-  failure = Cucumber::Cli::Main.execute(ARGV.dup)
-  Kernel.exit(1) if failure
-rescue SystemExit => e
-  Kernel.exit(e.status)
-rescue Exception => e
-  STDERR.puts("#{e.message} (#{e.class})")
-  STDERR.puts(e.backtrace.join("\n"))
-  Kernel.exit(1)
-end
-=end
+options = {}
+OptionParser.new do |opts|
+  opts.banner = <<-END.gsub(/^[ \t]+/m, '')
+    Usage: git-blame-chain [options] path/to/filename
+  END
+
+  opts.separator ""
+  opts.separator "Options:"
+
+  opts.on("-s", "--sha", "--SHA [SHA]", String, "Set initial SHA (defaults to HEAD)") do |sha|
+    options[:sha] = sha
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+end.parse!
+
+p options
+path_to_file = ARGV[0]
+
+raise OptionParser::MissingArgument.new("You must specify a path to a file ") if not path_to_file
+p path_to_file
+
+#Git::Blame::Chain.new()
