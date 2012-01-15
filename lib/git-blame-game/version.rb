@@ -1,6 +1,6 @@
 module Git
   module Blame
-    module Chain
+    module Game
       VERSION = "0.0.1"
     end
   end
