@@ -1,7 +1,7 @@
 class GitBlameGame
   def initialize(path_to_file, opts={})
     @path_to_file = path_to_file
-    @sha = opts[:sha].present? ? opts[:sha] : 'HEAD'
+    @sha = !opts[:sha].nil? ? opts[:sha] : 'HEAD'
   end
 
   def run
@@ -35,7 +35,7 @@ class GitBlameGame
   def prompt_for_file(files_changed,sha)
     print "\n" + gbc_color("Do you need to git blame chain further (y/n) >") + ' '
     input = $stdin.gets.strip.downcase
-    until %w{y n}.include? (input)
+    until %w{y n}.include?(input)
       print "\n" + gbc_color("Invalid input.  Enter y or n >") + ' '
       input = $stdin.gets.strip.downcase
     end
