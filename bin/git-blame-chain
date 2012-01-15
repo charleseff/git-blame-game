@@ -11,7 +11,7 @@ require 'active_support/dependencies'
 ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib/git-blame-chain'
 
 require 'optparse'
-
+require 'colorize'
 
 
 options = {}
@@ -38,4 +38,3 @@ path_to_file = ARGV[0]
 raise OptionParser::MissingArgument.new("You must specify a path to a file ") if not path_to_file
 
 GitBlameChain.new(path_to_file, options).run
-#Git::Blame::Chain.new()
