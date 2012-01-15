@@ -10,7 +10,7 @@ require 'active_support/all'
 require 'active_support/dependencies'
 require 'optparse'
 
-ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib'
+ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib/git-blame-chain'
 
 
 options = {}
@@ -33,10 +33,8 @@ OptionParser.new do |opts|
 
 end.parse!
 
-p options
 path_to_file = ARGV[0]
-
 raise OptionParser::MissingArgument.new("You must specify a path to a file ") if not path_to_file
-p path_to_file
 
+GitBlameChain.new(path_to_file, options).run
 #Git::Blame::Chain.new()

@@ -1,9 +1,2 @@
-require "git-blame-chain/version"
+# Load nothing - just keep the file here to keep bundler happy.
 
-module Git
-  module Blame
-    module Chain
-      # Your code goes here...
-    end
-  end
-end
