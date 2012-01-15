@@ -1,4 +1,4 @@
-class GitBlameChain
+class GitBlameGame
   def initialize(path_to_file, opts={})
     @path_to_file = path_to_file
     @sha = opts[:sha].present? ? opts[:sha] : 'HEAD'

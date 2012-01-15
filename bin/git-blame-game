@@ -8,7 +8,7 @@ Bundler.require :default
 
 require 'active_support/all'
 require 'active_support/dependencies'
-ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib/git-blame-chain'
+ActiveSupport::Dependencies.autoload_paths << root_dir + 'lib/git-blame-game'
 
 require 'optparse'
 require 'colorize'
@@ -17,7 +17,7 @@ require 'colorize'
 options = {}
 OptionParser.new do |opts|
   opts.banner = <<-END.gsub(/^[ \t]+/m, '')
-    Usage: git-blame-chain [options] path/to/filename
+    Usage: git-blame-game [options] path/to/filename
   END
 
   opts.separator ""
@@ -37,4 +37,4 @@ end.parse!
 path_to_file = ARGV[0]
 raise OptionParser::MissingArgument.new("You must specify a path to a file ") if not path_to_file
 
-GitBlameChain.new(path_to_file, options).run
+GitBlameGame.new(path_to_file, options).run
