@@ -22,8 +22,10 @@ Feature: Blaming
     """
 
   Scenario: Without a SHA:
-    Given I cd to "features/fixtures/sample_git_repo"
-    When I run `../../../bin/git-blame-chain add.rb`
+    Given I cd to "test/fixtures/sample_git_repo"
+    When I run `../../../bin/git-blame-chain add.rb` interactively
+    When I type "foobar"
+    When I type "1"
     Then the output should contain:
     """
     de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
@@ -32,11 +34,6 @@ Feature: Blaming
     de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
     de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
 
-    Which line are you concerned with? (1 to 5) >
+    Which line are you concerned with? (1 to 5) > 
+    Invalid input.  Please enter a number from 1 to 5 > 
     """
-    When I type "foobar"
-    Then the output should contain:
-    """
-    Invalid input.  Please enter a number from 1 to 5 >
-    """
-    When I type "1"

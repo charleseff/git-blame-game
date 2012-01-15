@@ -19,9 +19,10 @@ class GitBlameChain
     count = lines.count
 
     input = prompt_for_line(count)
-    sha_to_show = lines[input]
+    sha_to_show = lines[input][GIT_BLAME_REGEX,1]
 
     out = `git show #{sha_to_show}`
+#    puts out
 
     # git log de2a1d78f80e02a515cdd3aa0420dd6ee35b510b -n 1
 
@@ -32,7 +33,7 @@ class GitBlameChain
     input = $stdin.gets
     input = input.strip.to_i
     until input >= 1 && input <= count
-      print "Invalid input.  Please enter a number from 1 to #{count} > "
+      print "\nInvalid input.  Please enter a number from 1 to #{count} > "
       input = $stdin.gets
       input = input.strip.to_i
     end
