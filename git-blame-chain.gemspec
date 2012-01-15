@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Charles Finkel"]
   s.email       = ["charles.finkel@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{git-blame-chain is an interactive command for chaining 'git blame' calls to get to the real culprit for the line of code you care about, when one `git blame` does not tell the whole story.}
+  s.description = %q{When one `git blame` is not enough}
 
   s.rubyforge_project = "git-blame-chain"
 
