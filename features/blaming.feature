@@ -64,7 +64,7 @@ Feature: Blaming
      end
     \ No newline at end of file
 
-    Do you need to git blame chain further (y/n) >
+    Do you need to git blame chain further? (y/n) >
     Invalid input.  Enter y or n >
       1) add.rb
 
@@ -109,7 +109,7 @@ Feature: Blaming
      puts add_4(9) # should be 13
     \ No newline at end of file
 
-    Do you need to git blame chain further (y/n) >
+    Do you need to git blame chain further? (y/n) >
       1) add.rb
       2) blah.rb
 
@@ -140,7 +140,7 @@ Feature: Blaming
      puts add_4(9) # should be 13
     \ No newline at end of file
 
-    Do you need to git blame chain further (y/n) >
+    Do you need to git blame chain further? (y/n) >
     The responsible commit is:
 
     commit 63b41ee41653991aa00ce9687e3f403efd4c29d4
@@ -184,7 +184,7 @@ Feature: Blaming
    puts add_4(9) # should be 13
   \ No newline at end of file
 
-  Do you need to git blame chain further (y/n) >
+  Do you need to git blame chain further? (y/n) >
   The responsible commit is:
 
   commit 63b41ee41653991aa00ce9687e3f403efd4c29d4

@@ -44,7 +44,7 @@ git-blame-game is an interactive command-line tool for chaining 'git blame' call
      end
     \ No newline at end of file
 
-    Do you need to git blame chain further (y/n) > y
+    Do you need to git blame chain further? (y/n) > y
 
       1) add.rb
 
@@ -91,7 +91,7 @@ git-blame-game is an interactive command-line tool for chaining 'git blame' call
      puts add_4(9) # should be 13
     \ No newline at end of file
 
-    Do you need to git blame chain further (y/n) > y
+    Do you need to git blame chain further? (y/n) > y
 
       1) add.rb
       2) blah.rb
@@ -125,7 +125,7 @@ git-blame-game is an interactive command-line tool for chaining 'git blame' call
      puts add_4(9) # should be 13
     \ No newline at end of file
 
-    Do you need to git blame chain further (y/n) > n
+    Do you need to git blame chain further? (y/n) > n
 
     The responsible commit is:
 

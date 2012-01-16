@@ -26,14 +26,16 @@ class GitBlameGame
     system "git show #{sha_to_show}"
     files_changed = `git show --pretty="format:" --name-only #{sha_to_show}`.split("\n")[1..-1]
 
-    @path_to_file = prompt_for_file(files_changed,sha_to_show)
+    prompt_for_continue(sha_to_show)
+
+    @path_to_file = prompt_for_file(files_changed)
     @sha = "#{sha_to_show}^"
 
     true
   end
 
-  def prompt_for_file(files_changed,sha)
-    print "\n" + gbc_color("Do you need to git blame chain further (y/n) >") + ' '
+  def prompt_for_continue(sha)
+    print "\n" + gbc_color("Do you need to git blame chain further? (y/n) >") + ' '
     input = $stdin.gets.strip.downcase
     until %w{y n}.include?(input)
       print "\n" + gbc_color("Invalid input.  Enter y or n >") + ' '
@@ -45,10 +47,11 @@ class GitBlameGame
       system "git log #{sha} -n 1"
       exit 0
     end
+  end
 
+  def prompt_for_file(files_changed)
     puts
-    files_changed.each_with_index do |file,index|
-      "%-10s  %-12s  %-15s  %-48s  %-s\n"
+    files_changed.each_with_index do |file, index|
       printf("%3d) #{file}\n", index+1)
     end
 
