@@ -1,3 +1,4 @@
+# NOTE: this feature assumes a standard install of git with no .gitconfig options, which may alter git output
 Feature: Blaming
 
   Scenario: Getting help
@@ -44,7 +45,7 @@ Feature: Blaming
 
     Which line are you concerned with? (1 to 5) >
     Invalid input.  Enter a number from 1 to 5 >
-    commit 5087eab56af9b0901a1b190de14f29867307c140 (HEAD, master)
+    commit 5087eab56af9b0901a1b190de14f29867307c140
     Author: Danny Dover <developers+danny@foo.com>
     Date:   Sat Jan 14 14:50:06 2012 -0800
 
