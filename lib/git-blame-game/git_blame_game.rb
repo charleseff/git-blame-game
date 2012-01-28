@@ -12,9 +12,12 @@ class GitBlameGame
   GIT_BLAME_REGEX = /(.+?) /
 
   def loop
-    puts
-    out = run_idempotent_git_command("git blame #{@sha} -- #{@path_to_file}")
+    p_flush("\n")
+
+    cmd = "git blame #{@sha} -- #{@path_to_file}"
+    system cmd
     exit $?.exitstatus unless $?.success?
+    out = `#{cmd}`
 
     lines = out.split("\n")
     count = lines.count
@@ -22,7 +25,7 @@ class GitBlameGame
     line = prompt_for_line(count)
     sha_to_show = lines[line-1][GIT_BLAME_REGEX, 1]
 
-    puts
+    p_flush("\n")
     system "git show #{sha_to_show}"
     files_changed = `git show --pretty="format:" --name-only #{sha_to_show}`.split("\n")[1..-1]
 
@@ -34,30 +37,36 @@ class GitBlameGame
     true
   end
 
+  def p_flush(str)
+    $stdout.print str
+    $stdout.flush
+  end
+
   def prompt_for_continue(sha)
-    print "\n" + gbc_color("Do you need to git blame chain further? (y/n) >") + ' '
+    p_flush "\n" + gbc_color("Do you need to git blame chain further? (y/n) >") + ' '
     input = $stdin.gets.strip.downcase
     until %w{y n}.include?(input)
-      print "\n" + gbc_color("Invalid input.  Enter y or n >") + ' '
+      p_flush "\n" + gbc_color("Invalid input.  Enter y or n >") + ' '
       input = $stdin.gets.strip.downcase
     end
 
     if input == 'n'
-      print "\n" + gbc_color("The responsible commit is:") + "\n\n"
+      p_flush "\n" + gbc_color("The responsible commit is:") + "\n\n"
       system "git log #{sha} -n 1"
       exit 0
     end
   end
 
   def prompt_for_file(files_changed)
-    puts
+    p_flush("\n")
     files_changed.each_with_index do |file, index|
-      printf("%3d) #{file}\n", index+1)
+      $stdout.printf("%3d) #{file}\n", index+1)
+      $stdout.flush
     end
 
-    print "\n" + gbc_color("Enter the number (from 1 to #{files_changed.size}) of the file to git blame chain into >") + ' '
+    p_flush "\n" + gbc_color("Enter the number (from 1 to #{files_changed.size}) of the file to git blame chain into >") + ' '
     until (input = $stdin.gets.strip.to_i) >= 1 && input <= files_changed.size
-      print "\n" + gbc_color("Invalid input.  Enter a number from 1 to #{files_changed.size} >") + ' '
+      p_flush "\n" + gbc_color("Invalid input.  Enter a number from 1 to #{files_changed.size} >") + ' '
     end
 
     return files_changed[input-1]
@@ -65,9 +74,9 @@ class GitBlameGame
   end
 
   def prompt_for_line(count)
-    print "\n" + gbc_color("Which line are you concerned with? (1 to #{count}) >") + ' '
+    p_flush "\n" + gbc_color("Which line are you concerned with? (1 to #{count}) >") + ' '
     until (input = $stdin.gets.strip.to_i) >= 1 && input <= count
-      print "\n" + gbc_color("Invalid input.  Enter a number from 1 to #{count} >") + ' '
+      p_flush "\n" + gbc_color("Invalid input.  Enter a number from 1 to #{count} >") + ' '
     end
     input
   end

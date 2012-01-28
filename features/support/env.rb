@@ -15,6 +15,5 @@ end
 
 Before do
   unzip_git_repo_if_needed!
-
   set_relative_dir_for_aruba!
 end
