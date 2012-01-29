@@ -2,6 +2,8 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib') unless $:.include?(File.dirname(__FILE__) + '/../lib')
 require 'git-blame-game'
 
+aliases = %w(blame praise annotate ann)
+
 options = {}
 OptionParser.new do |opts|
   opts.banner = <<-END.gsub(/^[ \t]+/m, '')
@@ -17,6 +19,7 @@ OptionParser.new do |opts|
 
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
+    puts "\nAliases: " + aliases.map{|a| ["git-#{a}-game", "git #{a}-game"]}.flatten.join(", ")
     exit
   end
 
