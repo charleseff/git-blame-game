@@ -1,3 +1,5 @@
+# NOTE: these features assumes a standard install of git with no .gitconfig options, which may alter git output
+
 require 'aruba/cucumber'
 
 def unzip_git_repo_if_needed!

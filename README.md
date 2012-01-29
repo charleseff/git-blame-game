@@ -50,7 +50,7 @@ git-blame-game is an interactive command-line tool for chaining 'git blame' call
 
       1) add.rb
 
-    Enter the number (from 1 to 1) of the file to git blame chain into > 1
+    Enter the number from the above list (from 1 to 1) of the file to git blame chain into > 1
 
     de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
     de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 2)   def add_4(x)
@@ -98,7 +98,7 @@ git-blame-game is an interactive command-line tool for chaining 'git blame' call
       1) add.rb
       2) blah.rb
 
-    Enter the number (from 1 to 2) of the file to git blame chain into > 2
+    Enter the number from the above list (from 1 to 2) of the file to git blame chain into > 2
 
     ^f603a9a (Alice Amos 2012-01-14 14:46:18 -0800 1) def add_4(x)
     63b41ee4 (Bob Barker 2012-01-14 14:46:53 -0800 2)   x + 5

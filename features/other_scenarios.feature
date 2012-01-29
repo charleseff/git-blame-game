@@ -1,4 +1,3 @@
-# NOTE: this feature assumes a standard install of git with no .gitconfig options, which may alter git output
 Feature: Other scenarios
 
   Scenario: Getting help
@@ -62,6 +61,52 @@ Feature: Other scenarios
          end
        end
       \ No newline at end of file
+    """
 
-      Do you need to git blame chain further? (y/n) >
+  Scenario: Entering 's' for the same file to git blame into
+    Given I cd to "test/fixtures/sample_git_repo"
+    When I run `../../../bin/git-blame-game add.rb` interactively
+    When I type "3"
+    Then the next bit of output should contain, ignoring spaces:
+    """
+        1) add.rb
+
+      Enter any of:
+        - 'q' to quit, if you have found the offending commit
+        - the number from the above list (from 1 to 1) of the file to git blame chain into.
+        - the filepath to git blame chain into.
+        - 's' to git blame chain into the 'same' file as before
+    """
+    When I type "s"
+    Then the next bit of output should contain, ignoring spaces:
+    """
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 2)   def add_4(x)
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 3)     x + 5
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
+    """
+
+  Scenario: Entering the filename for the file to git blame into:
+    Given I cd to "test/fixtures/sample_git_repo"
+    When I run `../../../bin/git-blame-game add.rb` interactively
+    When I type "3"
+    Then the next bit of output should contain, ignoring spaces:
+    """
+        1) add.rb
+
+      Enter any of:
+        - 'q' to quit, if you have found the offending commit
+        - the number from the above list (from 1 to 1) of the file to git blame chain into.
+        - the filepath to git blame chain into.
+        - 's' to git blame chain into the 'same' file as before
+    """
+    When I type "add.rb"
+    Then the next bit of output should contain, ignoring spaces:
+    """
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 2)   def add_4(x)
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 3)     x + 5
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
     """
