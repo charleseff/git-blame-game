@@ -1,2 +1,4 @@
-# Load nothing - just keep the file here to keep bundler happy.
-
+require 'rubygems'
+require 'colorize'
+require 'optparse'
+require 'git-blame-game/git_blame_game'
