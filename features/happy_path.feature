@@ -1,9 +1,9 @@
 Feature: The happy path
 
-  Scenario: Without a SHA:
+  Scenario: Happy path
     Given I cd to "test/fixtures/sample_git_repo"
     When I run `../../../bin/git-blame-game add.rb` interactively
-    Then the next bit of output should contain, ignoring spaces:
+    Then I should see:
     """
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
       5087eab5 (Danny Dover     2012-01-14 14:50:06 -0800 2)   def add_4(y)
@@ -11,15 +11,10 @@ Feature: The happy path
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
 
-      Enter:
-        - the line number from the above list (from 1 to 5) you are git blaming.
-        - the sha to git blame chain into.
-        - 'v' to view the git blame again
-
-      >
+      (h for help) >
     """
     When I type "3"
-    Then the next bit of output should contain, ignoring spaces:
+    Then I should see:
     """
       commit 5087eab56af9b0901a1b190de14f29867307c140
       Author: Danny Dover <developers+danny@foo.com>
@@ -43,17 +38,10 @@ Feature: The happy path
 
         1) add.rb
 
-      Enter:
-        - 'q' to quit, if you have found the offending commit
-        - the number from the above list (from 1 to 1) of the file to git blame chain into.
-        - the filepath to git blame chain into.
-        - 's' to git blame chain into the 'same' file as before
-        - 'v' to view the git show again
-
-      >
+      (h for help) >
     """
     When I type "1"
-    Then the next bit of output should contain, ignoring spaces:
+    Then I should see:
     """
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 2)   def add_4(x)
@@ -61,15 +49,10 @@ Feature: The happy path
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
 
-      Enter:
-        - the line number from the above list (from 1 to 5) you are git blaming.
-        - the sha to git blame chain into.
-        - 'v' to view the git blame again
-
-      >
+      (h for help) >
     """
     When I type "3"
-    Then the next bit of output should contain, ignoring spaces:
+    Then I should see:
     """
       commit de2a1d78f80e02a515cdd3aa0420dd6ee35b510b
       Author: Carmen Cummings <developers+carmen@foo.com>
@@ -107,17 +90,10 @@ Feature: The happy path
         1) add.rb
         2) blah.rb
 
-      Enter:
-        - 'q' to quit, if you have found the offending commit
-        - the number from the above list (from 1 to 2) of the file to git blame chain into.
-        - the filepath to git blame chain into.
-        - 's' to git blame chain into the 'same' file as before
-        - 'v' to view the git show again
-
-      >
+      (h for help) >
     """
     When I type "2"
-    Then the next bit of output should contain, ignoring spaces:
+    Then I should see:
     """
       ^f603a9a (Alice Amos 2012-01-14 14:46:18 -0800 1) def add_4(x)
       63b41ee4 (Bob Barker 2012-01-14 14:46:53 -0800 2)   x + 5
@@ -125,15 +101,10 @@ Feature: The happy path
       ^f603a9a (Alice Amos 2012-01-14 14:46:18 -0800 4)
       ^f603a9a (Alice Amos 2012-01-14 14:46:18 -0800 5) puts add_4(9) # should be 13
 
-      Enter:
-        - the line number from the above list (from 1 to 5) you are git blaming.
-        - the sha to git blame chain into.
-        - 'v' to view the git blame again
-
-      >
+      (h for help) >
     """
     When I type "2"
-    Then the next bit of output should contain, ignoring spaces:
+    Then I should see:
     """
       commit 63b41ee41653991aa00ce9687e3f403efd4c29d4
       Author: Bob Barker <developers+bob@foo.com>
@@ -156,17 +127,10 @@ Feature: The happy path
 
         1) blah.rb
 
-      Enter:
-        - 'q' to quit, if you have found the offending commit
-        - the number from the above list (from 1 to 1) of the file to git blame chain into.
-        - the filepath to git blame chain into.
-        - 's' to git blame chain into the 'same' file as before
-        - 'v' to view the git show again
-
-      >
+      (h for help) >
     """
     When I type "q"
-    Then the next bit of output should contain, ignoring spaces:
+    Then I should see:
     """
     The responsible commit is:
 
