@@ -1,5 +1,5 @@
-- add ability to re-see the most recently run 'git blame' or 'git show'
+- hide options, add 'h' for help option only.
 - add ability to go back a step if you made a mistake
-- add special highlighting for in the 'git show' for the line of code that has been chosen to git blame chain into
+- add special highlighting for in the 'git show' for the line of code (or also the file) that has been chosen to git blame chain into
 - (maybe) add support for one-file mode (maybe make it default too?)
 - add pull request for aruba?

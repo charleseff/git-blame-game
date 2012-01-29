@@ -8,21 +8,51 @@ class GitBlameGame
     while true
       p_flush("\n")
 
-      cmd = "git blame #{@sha} -- #{@path_to_file}"
-      system cmd
-      exit $?.exitstatus unless $?.success?
-      git_blame_out = `#{cmd}`
-
-      sha_list = get_sha_list(git_blame_out)
-      sha_to_show = prompt_for_sha(sha_list)
+      sha_to_show = show_git_blame_and_prompt_for_sha
 
       p_flush("\n")
-      system "git show #{sha_to_show}"
       files_changed = `git show --pretty="format:" --name-only #{sha_to_show}`.split("\n")[1..-1]
-
-      @path_to_file = prompt_for_file(files_changed, sha_to_show, @path_to_file)
+      @path_to_file = prompt_for_file(files_changed, sha_to_show)
       @sha = "#{sha_to_show}^"
     end
+  end
+
+  private
+  def show_git_blame_and_prompt_for_sha
+    git_blame_out = `#{git_blame_cmd}`
+    exit $?.exitstatus unless $?.success?
+    sha_list = get_sha_list(git_blame_out)
+
+    print_git_blame_and_prompt(sha_list.count)
+    prompt_for_sha(sha_list)
+  end
+
+  def prompt_for_sha(sha_list)
+    while true
+      input = $stdin.gets.strip
+      # sha was entered, return it:
+      return input if sha_list.include? input
+
+      if input =~ /\A\d+\Z/
+        input = input.to_i
+        return sha_list[input - 1] if input <= sha_list.count && input >= 1
+      end
+
+      if input == 'v'
+        print_git_blame_and_prompt(sha_list.count)
+      else
+        p_flush "\n" + color("Invalid input.  ") + prompt_for_sha_message(sha_list.count)
+      end
+    end
+  end
+
+  def print_git_blame_and_prompt(count)
+    system git_blame_cmd
+    p_flush "\n" + prompt_for_sha_message(count)
+  end
+
+  def git_blame_cmd
+    "git blame #{@sha} -- #{@path_to_file}"
   end
 
   GIT_BLAME_REGEX = /(.+?) /
@@ -31,13 +61,8 @@ class GitBlameGame
     git_blame_out.strip.split("\n").map { |line| line[GIT_BLAME_REGEX, 1] }
   end
 
-  def p_flush(str)
-    $stdout.print str
-    $stdout.flush
-  end
-
-  def prompt_for_file(files_changed, sha, prior_file)
-    print_file_prompt(files_changed)
+  def prompt_for_file(files_changed, sha)
+    print_file_prompt(files_changed, sha)
 
     while true
       input = $stdin.gets.strip
@@ -46,16 +71,24 @@ class GitBlameGame
         system "git log #{sha} -n 1"
         exit 0
       end
-      return prior_file if input == 's'
+      return @path_to_file if input == 's'
       return input if files_changed.include? input
-      input = input.to_i
-      return files_changed[input-1] if input >= 1 && input <= files_changed.size
 
-      p_flush "\n" + color("Invalid input.  ") + prompt_for_file_message(files_changed.size)
+      if input =~ /\A\d+\Z/
+        input = input.to_i
+        return files_changed[input-1] if input >= 1 && input <= files_changed.size
+      end
+
+      if input == 'v'
+        print_file_prompt(files_changed, sha)
+      else
+        p_flush "\n" + color("Invalid input.  ") + prompt_for_file_message(files_changed.size)
+      end
     end
   end
 
-  def print_file_prompt(files)
+  def print_file_prompt(files, sha)
+    system "git show #{sha}"
     print("\n")
     files.each_with_index do |file, index|
       print color(sprintf("%3d) #{file}", index+1)) + "\n"
@@ -64,29 +97,27 @@ class GitBlameGame
   end
 
   def prompt_for_file_message(size)
-    color("Enter any of:") + "\n" +
+    color("Enter:") + "\n" +
       "  " + color("- 'q' to quit, if you have found the offending commit") + "\n" +
       "  " + color("- the number from the above list (from 1 to #{size}) of the file to git blame chain into.") + "\n" +
       "  " + color("- the filepath to git blame chain into.") + "\n" +
-      "  " + color("- 's' to git blame chain into the 'same' file as before") + "\n\n" +
+      "  " + color("- 's' to git blame chain into the 'same' file as before") + "\n" +
+      "  " + color("- 'v' to view the git show again") + "\n\n" +
+
       color(">") + " "
   end
 
-  def prompt_for_sha(shas)
-    p_flush "\n" + color("Which line are you concerned with?") + "\n" +
-              color("Enter a number from 1 to #{shas.count} or paste the SHA you want to show >") + ' '
-    while true
-      input = $stdin.gets.strip
-      # sha was entered, return it:
-      return input if shas.include? input
+  def prompt_for_sha_message(count)
+    color("Enter:") + "\n" +
+      "  " + color("- the line number from the above list (from 1 to #{count}) you are git blaming.") + "\n" +
+      "  " + color("- the sha to git blame chain into.") + "\n" +
+      "  " + color("- 'v' to view the git blame again") + "\n\n" +
+      color(">") + " "
+  end
 
-      if input =~ /\A\d+\Z/
-        input = input.to_i
-        return shas[input - 1] if input <= shas.count && input >= 1
-      end
-
-      p_flush "\n" + color("Invalid input.  Enter a number from 1 to #{shas.count} or paste the SHA you want to show >") + ' '
-    end
+  def p_flush(str)
+    $stdout.print str
+    $stdout.flush
   end
 
   def color(s)

@@ -21,7 +21,7 @@ describe GitBlameGame do
     }
 
     it "should return a list of shas" do
-      git_blame_game.get_sha_list(git_blame_out).should == sha_list
+      git_blame_game.send(:get_sha_list,git_blame_out).should == sha_list
     end
   end
 
@@ -32,16 +32,15 @@ describe GitBlameGame do
     context "when user enters a correct sha" do
       let(:input) { '5087eab5' }
       it "should return the correct sha" do
-        git_blame_game.prompt_for_sha(sha_list).should == '5087eab5'
+        git_blame_game.send(:prompt_for_sha, sha_list).should == '5087eab5'
       end
     end
     context "when user enters a correct number" do
       let(:input) { '1' }
       it "should return the correct sha" do
-        git_blame_game.prompt_for_sha(sha_list).should == 'de2a1d78'
+        git_blame_game.send(:prompt_for_sha, sha_list).should == 'de2a1d78'
       end
     end
-    context "when user enters an incorrect value"
   end
 
 end

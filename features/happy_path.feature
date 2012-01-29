@@ -11,13 +11,12 @@ Feature: The happy path
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
 
-      Which line are you concerned with?
-      Enter a number from 1 to 5 or paste the SHA you want to show >
-    """
-    When I type "foobar"
-    Then the next bit of output should contain, ignoring spaces:
-    """
-      Invalid input.  Enter a number from 1 to 5 or paste the SHA you want to show >
+      Enter:
+        - the line number from the above list (from 1 to 5) you are git blaming.
+        - the sha to git blame chain into.
+        - 'v' to view the git blame again
+
+      >
     """
     When I type "3"
     Then the next bit of output should contain, ignoring spaces:
@@ -44,36 +43,30 @@ Feature: The happy path
 
         1) add.rb
 
-      Enter any of:
+      Enter:
         - 'q' to quit, if you have found the offending commit
         - the number from the above list (from 1 to 1) of the file to git blame chain into.
         - the filepath to git blame chain into.
         - 's' to git blame chain into the 'same' file as before
-
-      >
-    """
-    When I type "blah"
-    Then the next bit of output should contain, ignoring spaces:
-    """
-      Invalid input.  Enter any of:
-        - 'q' to quit, if you have found the offending commit
-        - the number from the above list (from 1 to 1) of the file to git blame chain into.
-        - the filepath to git blame chain into.
-        - 's' to git blame chain into the 'same' file as before
+        - 'v' to view the git show again
 
       >
     """
     When I type "1"
     Then the next bit of output should contain, ignoring spaces:
     """
-          de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
-          de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 2)   def add_4(x)
-          de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 3)     x + 5
-          de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
-          de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 2)   def add_4(x)
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 3)     x + 5
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
+      de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
 
-          Which line are you concerned with?
-          Enter a number from 1 to 5 or paste the SHA you want to show >
+      Enter:
+        - the line number from the above list (from 1 to 5) you are git blaming.
+        - the sha to git blame chain into.
+        - 'v' to view the git blame again
+
+      >
     """
     When I type "3"
     Then the next bit of output should contain, ignoring spaces:
@@ -114,11 +107,12 @@ Feature: The happy path
         1) add.rb
         2) blah.rb
 
-      Enter any of:
+      Enter:
         - 'q' to quit, if you have found the offending commit
         - the number from the above list (from 1 to 2) of the file to git blame chain into.
         - the filepath to git blame chain into.
         - 's' to git blame chain into the 'same' file as before
+        - 'v' to view the git show again
 
       >
     """
@@ -131,8 +125,12 @@ Feature: The happy path
       ^f603a9a (Alice Amos 2012-01-14 14:46:18 -0800 4)
       ^f603a9a (Alice Amos 2012-01-14 14:46:18 -0800 5) puts add_4(9) # should be 13
 
-      Which line are you concerned with?
-      Enter a number from 1 to 5 or paste the SHA you want to show >
+      Enter:
+        - the line number from the above list (from 1 to 5) you are git blaming.
+        - the sha to git blame chain into.
+        - 'v' to view the git blame again
+
+      >
     """
     When I type "2"
     Then the next bit of output should contain, ignoring spaces:
@@ -158,11 +156,12 @@ Feature: The happy path
 
         1) blah.rb
 
-      Enter any of:
+      Enter:
         - 'q' to quit, if you have found the offending commit
         - the number from the above list (from 1 to 1) of the file to git blame chain into.
         - the filepath to git blame chain into.
         - 's' to git blame chain into the 'same' file as before
+        - 'v' to view the git show again
 
       >
     """
