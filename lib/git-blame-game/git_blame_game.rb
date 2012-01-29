@@ -75,7 +75,8 @@ class GitBlameGame
   end
 
   def prompt_for_sha(shas)
-    p_flush "\n" + color("Which line are you concerned with?\n" + "Enter a number from 1 to #{shas.count} or paste the SHA you want to show >") + ' '
+    p_flush "\n" + color("Which line are you concerned with?") + "\n" +
+              color("Enter a number from 1 to #{shas.count} or paste the SHA you want to show >") + ' '
     while true
       input = $stdin.gets.strip
       # sha was entered, return it:
