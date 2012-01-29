@@ -36,21 +36,6 @@ class GitBlameGame
     $stdout.flush
   end
 
-  def prompt_for_continue(sha)
-    p_flush "\n" + color("Do you need to git blame chain further? (y/n) >") + ' '
-    input = $stdin.gets.strip.downcase
-    until %w{y n}.include?(input)
-      p_flush "\n" + color("Invalid input.  Enter y or n >") + ' '
-      input = $stdin.gets.strip.downcase
-    end
-
-    if input == 'n'
-      p_flush "\n" + color("The responsible commit is:") + "\n\n"
-      system "git log #{sha} -n 1"
-      exit 0
-    end
-  end
-
   def prompt_for_file(files_changed, sha, prior_file)
     print_file_prompt(files_changed)
 
