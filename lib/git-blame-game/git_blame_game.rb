@@ -5,7 +5,7 @@ class GitBlameGame
   end
 
   def run
-    while true
+    loop do
       p_flush("\n")
 
       sha_to_show = show_git_blame_and_prompt_for_sha
@@ -28,7 +28,7 @@ class GitBlameGame
   end
 
   def prompt_for_sha(shas)
-    while true
+    loop do
       input = $stdin.gets.strip
       # sha was entered, return it:
       return input if shas.include? input
@@ -66,7 +66,7 @@ class GitBlameGame
   def prompt_for_file(files_changed, sha)
     print_file_prompt(files_changed, sha)
 
-    while true
+    loop do
       input = $stdin.gets.strip
       if input == 'q'
         p_flush "\n" + color("The responsible commit is:") + "\n\n"
