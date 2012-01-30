@@ -95,7 +95,9 @@ class GitBlameGame
     system "git show #{sha}"
     print("\n")
     files.each_with_index do |file, index|
-      print sprintf("%3d) #{file}", index+1) + "\n"
+      line = sprintf("%3d) #{file}", index+1)
+      line += '   ' + orange_color("(or 's' for same)") if file == @path_to_file
+      print line + "\n"
     end
     p_flush "\n" + simple_prompt
   end
@@ -129,4 +131,9 @@ class GitBlameGame
   def color(s)
     s.colorize(:color => :light_white, :background => :magenta)
   end
+
+  def orange_color(s)
+    s.colorize(:color => :yellow, :background => :black)
+  end
+
 end

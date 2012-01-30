@@ -23,19 +23,19 @@ module ArubaExt
   end
 
   def wait_until_expectation
-      begin
-        exception = nil
-        wait_until do
-          begin
-            yield
-            true
-          rescue RSpec::Expectations::ExpectationNotMetError => e
-            exception = e
-            false
-          end
+    begin
+      exception = nil
+      wait_until do
+        begin
+          yield
+          true
+        rescue RSpec::Expectations::ExpectationNotMetError => e
+          exception = e
+          false
         end
-      rescue TimeoutError
-        raise exception
       end
+    rescue TimeoutError
+      raise exception
     end
+  end
 end
