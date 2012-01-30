@@ -38,7 +38,7 @@ class GitBlameGame
         return shas[input - 1] if input <= shas.count && input >= 1
       end
 
-      if input == 'v'
+      if input == 'r'
         print_git_blame_and_prompt
       elsif input == 'h'
         p_flush prompt_for_sha_message(shas.count)
@@ -81,7 +81,7 @@ class GitBlameGame
         return files_changed[input-1] if input >= 1 && input <= files_changed.count
       end
 
-      if input == 'v'
+      if input == 'r'
         print_file_prompt(files_changed, sha)
       elsif input == 'h'
         p_flush prompt_for_file_message(files_changed.count)
@@ -108,7 +108,7 @@ class GitBlameGame
       "  - the number from the above list (from 1 to #{count}) of the file to git blame chain into.\n" +
       "  - the filepath to git blame chain into.\n" +
       "  - 's' to git blame chain into the 'same' file as before\n" +
-      "  - 'v' to view the git show again\n\n" +
+      "  - 'r' to re-view the git show\n\n" +
       simple_prompt
   end
 
@@ -120,7 +120,7 @@ class GitBlameGame
     "Enter:\n" +
       "  - the line number from the above list (from 1 to #{count}) you are git blaming.\n" +
       "  - the sha to git blame chain into.\n" +
-      "  - 'v' to view the git blame again\n\n" + simple_prompt
+      "  - 'r' to re-view the git blame\n\n" + simple_prompt
   end
 
   def p_flush(str)

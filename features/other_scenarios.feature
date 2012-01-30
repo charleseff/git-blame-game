@@ -30,7 +30,7 @@ Feature: Other scenarios
       Invalid input.  Enter:
         - the line number from the above list (from 1 to 5) you are git blaming.
         - the sha to git blame chain into.
-        - 'v' to view the git blame again
+        - 'r' to re-view the git blame
 
       (h for help) >
     """
@@ -47,7 +47,7 @@ Feature: Other scenarios
         - the number from the above list (from 1 to 1) of the file to git blame chain into.
         - the filepath to git blame chain into.
         - 's' to git blame chain into the 'same' file as before
-        - 'v' to view the git show again
+        - 'r' to re-view the git show
 
       (h for help) >
     """
@@ -138,7 +138,7 @@ Feature: Other scenarios
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 4)   end
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 5) end
     """
-    When I type "v"
+    When I type "r"
     Then I should see:
     """
       de2a1d78 (Carmen Cummings 2012-01-14 14:49:00 -0800 1) module Add
@@ -176,7 +176,7 @@ Feature: Other scenarios
 
         1) add.rb (or 's' for same)
     """
-    When I type "v"
+    When I type "r"
     Then I should see:
     """
       commit 5087eab56af9b0901a1b190de14f29867307c140
@@ -215,7 +215,7 @@ Feature: Other scenarios
       Enter:
         - the line number from the above list (from 1 to 5) you are git blaming.
         - the sha to git blame chain into.
-        - 'v' to view the git blame again
+        - 'r' to re-view the git blame
 
       (h for help) >
     """
@@ -236,7 +236,7 @@ Feature: Other scenarios
         - the number from the above list (from 1 to 1) of the file to git blame chain into.
         - the filepath to git blame chain into.
         - 's' to git blame chain into the 'same' file as before
-        - 'v' to view the git show again
+        - 'r' to re-view the git show
 
       (h for help) >
     """
