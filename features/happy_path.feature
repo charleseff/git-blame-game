@@ -36,7 +36,7 @@ Feature: The happy path
        end
       \ No newline at end of file
 
-        1) add.rb
+        1) add.rb (or 's' for same)
 
       (h for help) >
     """
@@ -87,7 +87,7 @@ Feature: The happy path
        puts add_4(9) # should be 13
       \ No newline at end of file
 
-        1) add.rb
+        1) add.rb (or 's' for same)
         2) blah.rb
 
       (h for help) >
@@ -125,7 +125,7 @@ Feature: The happy path
        puts add_4(9) # should be 13
       \ No newline at end of file
 
-        1) blah.rb
+        1) blah.rb (or 's' for same)
 
       (h for help) >
     """

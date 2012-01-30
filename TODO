@@ -1,4 +1,5 @@
-- add ability to go back a step if you made a mistake
 - add special highlighting for in the 'git show' for the line of code (or also the file) that has been chosen to git blame chain into
+- add ability to go back a step if you made a mistake
 - (maybe) add support for one-file mode (maybe make it default too?)
 - add pull request for aruba?
+- add pull request for colorize (decolorize)

@@ -115,7 +115,7 @@ Feature: Other scenarios
     When I type "3"
     Then I should see:
     """
-        1) add.rb
+        1) add.rb (or 's' for same)
     """
     When I type "add.rb"
     Then I should see:
@@ -174,7 +174,7 @@ Feature: Other scenarios
        end
       \ No newline at end of file
 
-        1) add.rb
+        1) add.rb (or 's' for same)
     """
     When I type "v"
     Then I should see:
@@ -199,7 +199,7 @@ Feature: Other scenarios
        end
       \ No newline at end of file
 
-        1) add.rb
+        1) add.rb (or 's' for same)
     """
 
   Scenario: Getting help interactively for git blame:
@@ -219,7 +219,6 @@ Feature: Other scenarios
 
       (h for help) >
     """
-
 
   Scenario: Getting help interactively for git show:
     Given I cd to "test/fixtures/sample_git_repo"

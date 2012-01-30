@@ -11,7 +11,7 @@ class GitBlameGame
       sha_to_show = show_git_blame_and_prompt_for_sha
 
       p_flush("\n")
-      files_changed = `git show --pretty="format:" --name-only #{sha_to_show}`.split("\n")[1..-1]
+      files_changed = `#{git} show --pretty="format:" --name-only #{sha_to_show}`.split("\n")[1..-1]
 
       @path_to_file = prompt_for_file(files_changed, sha_to_show)
       @sha = "#{sha_to_show}^"
@@ -54,7 +54,7 @@ class GitBlameGame
   end
 
   def git_blame_cmd
-    "git blame #{@sha} -- #{@path_to_file}"
+    "#{git} blame #{@sha} -- #{@path_to_file}"
   end
 
   GIT_BLAME_REGEX = /(.+?) /
@@ -70,7 +70,7 @@ class GitBlameGame
       input = $stdin.gets.strip
       if input == 'q'
         p_flush "\n" + color("The responsible commit is:") + "\n\n"
-        system "git log #{sha} -n 1"
+        system "#{git} log #{sha} -n 1"
         exit 0
       end
       return @path_to_file if input == 's'
@@ -92,10 +92,12 @@ class GitBlameGame
   end
 
   def print_file_prompt(files, sha)
-    system "git show #{sha}"
+    p_flush `#{git} show #{sha}`
     print("\n")
     files.each_with_index do |file, index|
-      print sprintf("%3d) #{file}", index+1) + "\n"
+      line = sprintf("%3d) #{file}", index+1)
+      line += '   ' + orange_color("(or 's' for same)") if file == @path_to_file
+      print line + "\n"
     end
     p_flush "\n" + simple_prompt
   end
@@ -129,4 +131,13 @@ class GitBlameGame
   def color(s)
     s.colorize(:color => :light_white, :background => :magenta)
   end
+
+  def orange_color(s)
+    s.colorize(:color => :yellow, :background => :black)
+  end
+
+  def git
+    'git -c color.ui=always'
+  end
+
 end
