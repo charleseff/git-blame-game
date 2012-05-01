@@ -16,6 +16,6 @@ git-blame-game is an interactive command-line tool for chaining 'git blame' call
 
 ## Examples:
 
-    [Happy Path](https://github.com/charleseff/git-blame-game/blob/master/features/happy_path.feature) 
+[Happy Path](https://github.com/charleseff/git-blame-game/blob/master/features/happy_path.feature) 
     
-    [Other Scenarios](https://github.com/charleseff/git-blame-game/blob/master/features/other_scenarios.feature)
+[Other Scenarios](https://github.com/charleseff/git-blame-game/blob/master/features/other_scenarios.feature)
