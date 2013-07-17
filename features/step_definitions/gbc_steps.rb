@@ -16,7 +16,7 @@ def assert_seen(expected)
   @seen_output ||= ''
   expected = unescape(expected.gsub("\s", ''))
   wait_until_expectation do
-    @all_output = only_processes[0].output(@aruba_keep_ansi)
+    @all_output = only_processes[0].output
 
     actual = unescape(@all_output[@seen_output.size..-1].gsub("\s", ''))
 
