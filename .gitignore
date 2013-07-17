@@ -4,3 +4,4 @@ Gemfile.lock
 pkg/*
 .idea
 test/fixtures/sample_git_repo
+.DS_Store
