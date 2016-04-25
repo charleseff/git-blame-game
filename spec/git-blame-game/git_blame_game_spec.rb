@@ -6,7 +6,7 @@ describe GitBlameGame do
   let(:sha_list) { %w(de2a1d78 5087eab5 5087eab5 de2a1d78 de2a1d78) }
 
   before do
-    $stdout.stub(:print)
+    allow($stdout).to receive(:print)
   end
 
   describe "#get_sha_list" do
@@ -21,24 +21,24 @@ describe GitBlameGame do
     }
 
     it "should return a list of shas" do
-      git_blame_game.send(:get_sha_list,git_blame_out).should == sha_list
+      expect(git_blame_game.send(:get_sha_list, git_blame_out)).to eq(sha_list)
     end
   end
 
   describe "prompt_for_sha" do
     before do
-      $stdin.should_receive(:gets).and_return(input)
+      expect($stdin).to receive(:gets).and_return(input)
     end
     context "when user enters a correct sha" do
       let(:input) { '5087eab5' }
       it "should return the correct sha" do
-        git_blame_game.send(:prompt_for_sha, sha_list).should == '5087eab5'
+        expect(git_blame_game.send(:prompt_for_sha, sha_list)).to eq('5087eab5')
       end
     end
     context "when user enters a correct number" do
       let(:input) { '1' }
       it "should return the correct sha" do
-        git_blame_game.send(:prompt_for_sha, sha_list).should == 'de2a1d78'
+        expect(git_blame_game.send(:prompt_for_sha, sha_list)).to eq('de2a1d78')
       end
     end
   end
